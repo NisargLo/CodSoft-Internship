@@ -1,1 +1,1 @@
-<i><h1>CodSoft</h1></i>
+<i><h1>CodSoft Internship</h1></i>
