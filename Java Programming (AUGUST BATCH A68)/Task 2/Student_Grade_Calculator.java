@@ -35,7 +35,7 @@ public class Student_Grade_Calculator {
         } catch (InputMismatchException e) {
             System.out.println("\nInvalid input. Please enter integer values.\nProgram Over");
         } catch (Exception e) {
-            System.out.println("\nAn unexpected error occurred: " + e.getMessage());
+            System.out.println("\nAn unexpected error occurred: " + e.getMessage() + "\nProgram Over");
         }
     }
 
