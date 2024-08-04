@@ -9,6 +9,7 @@
     Display Results: Show the total marks, average percentage, and the corresponding grade to the user
  */
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Student_Grade_Calculator {
@@ -21,16 +22,20 @@ public class Student_Grade_Calculator {
     private final String grade;
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("How many student are there?");
-        int n = sc.nextInt();
-        Student_Grade_Calculator[] sgc = new Student_Grade_Calculator[n];
-        for (int i = 0; i < n; i++) {
-            sgc[i] = new Student_Grade_Calculator(i + 1);
-        }
-        sc.close();
-        for (int i = 0; i < n; i++) {
-            sgc[i].display_Student(i);
+        try (Scanner sc = new Scanner(System.in)) {
+            System.out.println("How many student are there?");
+            int n = sc.nextInt();
+            Student_Grade_Calculator[] sgc = new Student_Grade_Calculator[n];
+            for (int i = 0; i < n; i++) {
+                sgc[i] = new Student_Grade_Calculator(i + 1);
+            }
+            for (int i = 0; i < n; i++) {
+                sgc[i].display_Student(i);
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("\nInvalid input. Please enter integer values.\nProgram Over");
+        } catch (Exception e) {
+            System.out.println("\nAn unexpected error occurred: " + e.getMessage());
         }
     }
 
