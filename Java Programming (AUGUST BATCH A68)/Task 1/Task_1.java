@@ -1,5 +1,6 @@
 /*
-    Task 1: Date - 4/8/24
+    Task 1: Number Game
+    (Date - 4/8/24)
 
     1. Generate a random number within a specified range, such as 1 to 100.
     2. Prompt the user to enter their guess for the generated number.
