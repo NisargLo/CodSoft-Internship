@@ -1,3 +1,19 @@
+/*
+     Task 1: Number Game
+     (Date - 4/8/24)
+
+     1. Generate a random number within a specified range, such as 1 to 100.
+     2. Prompt the user to enter their guess for the generated number.
+     3. Compare the user's guess with the generated number and provide feedback on whether the guess is correct, too high, or too low.
+     4. Repeat steps 2 and 3 until the user guesses the correct number.
+
+     You can incorporate additional details as follows:
+
+     5. Limit the number of attempts the user has to guess the number.
+     6. Add the option for multiple rounds, allowing the user to play again.
+     7. Display the user's score, which can be based on the number of attempts taken or rounds won.
+ */
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -5,7 +21,12 @@ public class Number_Game {
      private byte random_Number, lives = 100;
      private int points, score = 0;
 
-     protected Number_Game() {
+     public static void main(String[] args) {
+          Number_Game nb = new Number_Game();
+          nb.play_Game();
+     }
+
+     private Number_Game() {
           give_Instructions_Rules();
           set_Points();
      }
@@ -38,7 +59,7 @@ public class Number_Game {
           this.random_Number = (byte) (Math.random() * 100 + 1);
      }
 
-     protected void play_Game() {
+     private void play_Game() {
           Scanner sc = new Scanner(System.in);
           while (lives > 0) {
                generate_Random();
