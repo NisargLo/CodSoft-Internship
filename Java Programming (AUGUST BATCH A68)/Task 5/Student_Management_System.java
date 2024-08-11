@@ -13,13 +13,13 @@
     Implement input validation to ensure that required fields are not left empty and that the student data is in the correct format.
  */
 
-import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Student_Management_System {
     public static void main(String[] args) {
         try(Scanner sc=new Scanner(System.in)) {
-            String_LinkedList studentList = new String_LinkedList();
+            Student_Details_Manipulation studentList = new Student_Details_Manipulation();
             int choice = 0;
             while (choice != -1) {
                 System.out.println("\nEnter 1 to see next student details from student list: ");
@@ -38,346 +38,219 @@ public class Student_Management_System {
                 System.out.println("Enter -1 to exit music player application: ");
                 choice = sc.nextInt();
                 sc.nextLine();
-                String[] stu;
-                switch (choice) {
-                    case 1:
-                        studentList.studentNext();
-                        break;
-
-                    case 2:
-                        studentList.studentPrevious();
-                        break;
-
-                    case 3:
-                        stu = new String[5];
-                        System.out.println("Enter student name: ");
-                        stu[0] = "Name: " + sc.nextLine();
-                        System.out.println("Enter student rollNo: ");
-                        stu[1] = "Roll No: " + sc.nextLine();
-                        System.out.println("Enter student standard: ");
-                        stu[2] = "Standard: " + sc.nextLine();
-                        System.out.println("Enter student age: ");
-                        stu[3] = "Age: " + sc.nextLine();
-                        System.out.println("Enter student grade: ");
-                        stu[4] = "Grade: " + sc.nextLine();
-                        studentList.insertAtFirstPosition(stu);
-                        break;
-
-                    case 4:
-                        stu = new String[5];
-                        System.out.println("Enter student name: ");
-                        stu[0] = "Name: " + sc.nextLine();
-                        System.out.println("Enter student rollNo: ");
-                        stu[1] = "Roll No: " + sc.nextLine();
-                        System.out.println("Enter student standard: ");
-                        stu[2] = "Standard: " + sc.nextLine();
-                        System.out.println("Enter student age: ");
-                        stu[3] = "Age: " + sc.nextLine();
-                        System.out.println("Enter student grade: ");
-                        stu[4] = "Grade: " + sc.nextLine();
-                        studentList.insertAtLastPosition(stu);
-                        break;
-
-                    case 5:
-                        stu = new String[5];
-                        System.out.println("Enter student name: ");
-                        stu[0] = "Name: " + sc.nextLine();
-                        System.out.println("Enter student rollNo: ");
-                        stu[1] = "Roll No: " + sc.nextLine();
-                        System.out.println("Enter student standard: ");
-                        stu[2] = "Standard: " + sc.nextLine();
-                        System.out.println("Enter student age: ");
-                        stu[3] = "Age: " + sc.nextLine();
-                        System.out.println("Enter student grade: ");
-                        stu[4] = "Grade: " + sc.nextLine();
-                        studentList.insertAtOrder(stu);
-                        break;
-
-                    case 6:
-                        System.out.println("Enter index :");
-                        int index1 = sc.nextInt();
-                        sc.nextLine();
-                        stu = new String[5];
-                        System.out.println("Enter student name: ");
-                        stu[0] = "Name: " + sc.nextLine();
-                        System.out.println("Enter student rollNo: ");
-                        stu[1] = "Roll No: " + sc.nextLine();
-                        System.out.println("Enter student standard: ");
-                        stu[2] = "Standard: " + sc.nextLine();
-                        System.out.println("Enter student age: ");
-                        stu[3] = "Age: " + sc.nextLine();
-                        System.out.println("Enter student grade: ");
-                        stu[4] = "Grade: " + sc.nextLine();
-                        studentList.insertAtSpecificPosition(index1, stu);
-                        break;
-
-                    case 7:
-                        studentList.deleteFromFirstPosition();
-                        break;
-
-                    case 8:
-                        studentList.deleteFromLastPosition();
-                        break;
-
-                    case 9:
-                        System.out.println("Enter index :");
-                        int index2 = sc.nextInt();
-                        sc.nextLine();
-                        studentList.deleteFromSpecificPosition(index2);
-                        break;
-
-                    case 10:
-                        stu = new String[5];
-                        System.out.println("Enter student name: ");
-                        stu[0] = "Name: " + sc.nextLine();
-                        System.out.println("Enter student rollNo: ");
-                        stu[1] = "Roll No: " + sc.nextLine();
-                        System.out.println("Enter student standard: ");
-                        stu[2] = "Standard: " + sc.nextLine();
-                        System.out.println("Enter student age: ");
-                        stu[3] = "Age: " + sc.nextLine();
-                        System.out.println("Enter student grade: ");
-                        stu[4] = "Grade: " + sc.nextLine();
-                        studentList.deleteGivenDataFromLinkedList(stu);
-                        break;
-
-                    case 11:
-                        studentList.deleteAllStudents();
-                        break;
-
-                    case 12:
-                        if(studentList.isEmpty()){
-                            System.out.println("Student list is empty.");
-                        }
-                        else{
-                            System.out.println("Student list is not empty.");
-                        }
-                        break;
-
-                    case 13:
-                        studentList.displayStudentLinkedList();
-                        break;
-
-                    case -1:
-                        System.out.println("Student management system program over.");
-                        break;
-
-                    default:
-                        System.out.println("Invalid");
-                }
+                scan(studentList,choice);
             }
         } catch (Exception e) {
             System.out.println("\nUnknown error occurred, "+e.getMessage()+"\nProgram over.");
         }
     }
-}
 
-class Student {
-    public String[] info;
-    public Student link;
+    private static void scan(Student_Details_Manipulation studentList, int choice){
+        String[] stu;
+        Scanner sc=new Scanner(System.in);
+        switch (choice) {
+            case 1:
+                studentList.studentNext();
+                break;
 
-    public Student(String[] data){
-        this.info=data;
-        this.link=null;
+            case 2:
+                studentList.studentPrevious();
+                break;
+
+            case 3:
+                stu=scanDetails();
+                if(stu[0]!=null && stu[1]!=null && stu[2]!=null && stu[3]!=null && stu[4]!=null){
+                    studentList.insertAtFirstPosition(stu);
+                }
+                break;
+
+            case 4:
+                stu=scanDetails();
+                if(stu[0]!=null && stu[1]!=null && stu[2]!=null && stu[3]!=null && stu[4]!=null){
+                    studentList.insertAtLastPosition(stu);
+                }
+                break;
+
+            case 5:
+                stu=scanDetails();
+                if(stu[0]!=null && stu[1]!=null && stu[2]!=null && stu[3]!=null && stu[4]!=null){
+                    studentList.insertAtOrder(stu);
+                }
+                break;
+
+            case 6:
+                System.out.println("Enter index: ");
+                int index1 = sc.nextInt();
+                sc.nextLine();
+                stu=scanDetails();
+                if(stu[0]!=null && stu[1]!=null && stu[2]!=null && stu[3]!=null && stu[4]!=null){
+                    studentList.insertAtSpecificPosition(index1, stu);
+                }
+                break;
+
+            case 7:
+                studentList.deleteFromFirstPosition();
+                break;
+
+            case 8:
+                studentList.deleteFromLastPosition();
+                break;
+
+            case 9:
+                System.out.println("Enter index: ");
+                int index2 = sc.nextInt();
+                sc.nextLine();
+                studentList.deleteFromSpecificPosition(index2);
+                break;
+
+            case 10:
+                stu = new String[5];
+                System.out.println("Enter student name: ");
+                stu[0] = "Name: " + sc.nextLine();
+                System.out.println("Enter student rollNo: ");
+                stu[1] = "Roll No: " + sc.nextLine();
+                System.out.println("Enter student standard: ");
+                stu[2] = "Standard: " + sc.nextLine();
+                System.out.println("Enter student age: ");
+                stu[3] = "Age: " + sc.nextLine();
+                System.out.println("Enter student grade: ");
+                stu[4] = "Grade: " + sc.nextLine();
+                studentList.deleteGivenDataFromLinkedList(stu);
+                break;
+
+            case 11:
+                studentList.deleteAllStudents();
+                break;
+
+            case 12:
+                if (studentList.isEmpty()) {
+                    System.out.println("Student list is empty.");
+                } else {
+                    System.out.println("Student list is not empty.");
+                }
+                break;
+
+            case 13:
+                studentList.displayStudentLinkedList();
+                break;
+
+            case -1:
+                System.out.println("Student management system program over.");
+                System.exit(0);
+
+            default:
+                System.out.println("Invalid");
+        }
     }
-}
 
-class String_LinkedList{
-    Student first=null;
-    Student Student_Position=null;
+    private static String[] scanDetails(){
+        Scanner sc=new Scanner(System.in);
+        String[] stu;
+        stu = new String[5];
+        System.out.println("Enter student's name: ");
+        String name=sc.nextLine();
+        if(checkName(name)){
+            System.out.println("\nError: Invalid name.\nEnter this student details again.\n");
+            scanDetails();
+            return stu;
+        }
+        stu[0] = "Name: " + name;
 
-    protected void studentNext() {
-        if (Student_Position==null) {
-            if (first == null) {
-                System.out.println("Empty student list.");
-                return;
+        System.out.println("Enter student's rollNo: ");
+        short rollNo;
+        try {
+            rollNo = sc.nextShort();
+            if(rollNo<1 || rollNo>10000){ // I've assumed that there are less than or equal to 10,000 students in school/college.
+                System.out.println("\nError: Invalid rollNo.\nEnter this student details again.\n");
+                scanDetails();
+                return stu;
             }
-            Student_Position = first;
-            System.out.println("Current student: " + Arrays.toString(Student_Position.info));
-            return;
+            sc.nextLine();
+        } catch (InputMismatchException e){
+            System.out.println("\nError: Invalid rollNo.\nEnter this student details again.\n");
+            scanDetails();
+            return stu;
+        } catch (Exception e) {
+            System.out.println("\nSome unknown error occurred: " + e.getMessage()+"\nEnter this student details again.");
+            scanDetails();
+            return stu;
         }
-        if (Student_Position.link == null) {
-            System.out.println("End of student list reached.");
-            return;
-        }
-        Student_Position = Student_Position.link;
-        System.out.println("Current student: " + Arrays.toString(Student_Position.info));
-    }
+        stu[1] = "Roll No: " + rollNo;
 
-    protected void studentPrevious() {
-        if (Student_Position==null) {
-            if (first == null) {
-                System.out.println("Empty student list.");
-                return;
+        System.out.println("Enter student's standard: ");
+        byte std;
+        try {
+            std = sc.nextByte();
+            if(std<1 || std>12){
+                System.out.println("\nError: Invalid standard.\nEnter this student details again.\n");
+                scanDetails();
+                return stu;
             }
-            Student_Position = first;
-            System.out.println("Current student: " + Arrays.toString(Student_Position.info));
-            return;
+            sc.nextLine();
+        } catch (InputMismatchException e){
+            System.out.println("\nError: Invalid standard.\nEnter this student details again.\n");
+            scanDetails();
+            return stu;
+        } catch (Exception e) {
+            System.out.println("\nSome unknown error occurred: " + e.getMessage() + "\nEnter this student details again.");
+            scanDetails();
+            return stu;
         }
-        if (Student_Position == first) {
-            System.out.println("Already at the beginning of the student list.");
-            return;
+        stu[2] = "Standard: " + std;
+
+        System.out.println("Enter student age: ");
+        byte age;
+        try {
+            age = sc.nextByte();
+            if(age<1 || age>30){
+                System.out.println("\nError: Invalid age.\nEnter this student details again.\n");
+                scanDetails();
+                return stu;
+            }
+            sc.nextLine();
+        } catch (InputMismatchException e){
+            System.out.println("\nError: Invalid age.\nEnter this student details again.\n");
+            scanDetails();
+            return stu;
+        } catch (Exception e) {
+            System.out.println("\nSome unknown error occurred: " + e.getMessage()+"\nEnter this student details again.");
+            scanDetails();
+            return stu;
         }
-        Student previous = first;
-        while (previous.link != Student_Position) {
-            previous = previous.link;
+        stu[3] = "Age: " + age;
+
+        System.out.println("Enter student grade: ");
+        String grade=sc.nextLine();
+        if(checkGrade(grade)){
+            System.out.println("\nError: Invalid grade.\nEnter this student details again.\n");
+            scanDetails();
+            return stu;
         }
-        Student_Position = previous;
-        System.out.println("Current student: " + Arrays.toString(Student_Position.info));
+        stu[4] = "Grade: " + grade;
+        return stu;
     }
 
-    protected void insertAtFirstPosition(String[] data){
-        Student newStudent=new Student(data);
-        newStudent.link=first;
-        first=newStudent;
+    private static boolean checkName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            return true;
+        }
+        String regex = "^[a-zA-Z]+( [a-zA-Z]+)*$";
+        return !name.matches(regex);
     }
 
-    protected void insertAtLastPosition(String[] data){
-        Student newStudent=new Student(data);
-        if(first==null){
-            first=newStudent;
-            return;
-        }
-        Student current=first;
-        while(current.link!=null){
-            current=current.link;
-        }
-        current.link=newStudent;
-    }
-
-    protected void insertAtOrder(String[] data) {
-        Student newStudent = new Student(data);
-        int newRollNo = Integer.parseInt(newStudent.info[1].substring(9).trim());
-        if (first == null || newRollNo < Integer.parseInt(first.info[1].substring(9).trim())) {
-            newStudent.link = first;
-            first = newStudent;
-            return;
-        }
-        Student current = first;
-        while (current.link != null && newRollNo >= Integer.parseInt(current.link.info[1].substring(9).trim())) {
-            current = current.link;
-        }
-        newStudent.link = current.link;
-        current.link = newStudent;
-    }
-
-    // user enters 1 based index :-
-    protected void insertAtSpecificPosition(int index, String[] data) {
-        Student newStudent = new Student(data);
-        if (index <= 0) {
-            System.out.println("Invalid index.");
-            return;
-        }
-        if (index == 1) {
-            newStudent.link = first;
-            first = newStudent;
-            return;
-        }
-        Student current = first;
-        int currentIndex = 1;
-        while (current != null && currentIndex < index - 1) {
-            current = current.link;
-            currentIndex++;
-        }
-        if (current == null) {
-            System.out.println("Index out of bounds.");
-            return;
-        }
-        newStudent.link = current.link;
-        current.link = newStudent;
-    }
-
-    protected void deleteFromFirstPosition(){
-        if(first==null){
-            System.out.println("Empty student list.");
-            return;
-        }
-        first=first.link;
-    }
-
-    protected void deleteFromLastPosition(){
-        if(first==null){
-            System.out.println("Empty student list.");
-            return;
-        }
-        if (first.link == null) {
-            first = null;
-            return;
-        }
-        Student current=first;
-        while(current.link != null && (current.link).link!=null){
-            current=current.link;
-        }
-        current.link=null;
-    }
-
-    // user enters 1 based index :-
-    protected void deleteFromSpecificPosition(int index) {
-        if (first == null) {
-            System.out.println("Empty student list.");
-            return;
-        }
-        if (index <= 0) {
-            System.out.println("Invalid index.");
-            return;
-        }
-        if (index == 1) {
-            first = first.link;
-            return;
-        }
-        Student current = first;
-        int currentIndex = 1;
-        while (currentIndex < index - 1 && current.link != null) {
-            current = current.link;
-            currentIndex++;
-        }
-        if (current.link == null) {
-            System.out.println("Invalid index.");
-            return;
-        }
-        current.link = current.link.link;
-    }
-
-    protected void deleteGivenDataFromLinkedList(String[] data){
-        if(first==null){
-            System.out.println("Empty student list.");
-            return;
-        }
-        if(first.info==data){
-            first=first.link;
-            return;
-        }
-        Student current=first;
-        while(current.link!=null && !(current.link.info==data)){
-            current=current.link;
-        }
-        if(current.link==null){
-            System.out.println("No such element in student list.");
-            return;
-        }
-        current.link=(current.link).link;
-    }
-
-    protected void deleteAllStudents() {
-        first=null;
-    }
-
-    protected boolean isEmpty() {
-        return first==null;
-    }
-
-    protected void displayStudentLinkedList() {
-        if (first == null) {
-            System.out.println("Empty student list.");
-            return;
-        }
-        char rightArrow = '→';
-        Student current = first;
-        System.out.println("\nStudent list: ");
-        int i=1;
-        while (current != null) {
-            System.out.println((i++)+". "+rightArrow+" "+Arrays.toString(current.info));
-            current = current.link;
-        }
+    private static boolean checkGrade(String grade){
+        return !grade.equalsIgnoreCase("A++") &&
+                !grade.equalsIgnoreCase("A+") &&
+                !grade.equalsIgnoreCase("A") &&
+                !grade.equalsIgnoreCase("B+") &&
+                !grade.equalsIgnoreCase("B") &&
+                !grade.equalsIgnoreCase("C+") &&
+                !grade.equalsIgnoreCase("C") &&
+                !grade.equalsIgnoreCase("D+") &&
+                !grade.equalsIgnoreCase("D") &&
+                !grade.equalsIgnoreCase("E+") &&
+                !grade.equalsIgnoreCase("E");
     }
 }
+
+
