@@ -11,18 +11,18 @@ class Student {
     // This info[] ↑ contains 5 details of a student (name, rollNo, standard, age, grade).
     public Student link;
 
-    public Student(String[] data){
-        this.info=data;
-        this.link=null;
+    public Student(String[] data) {
+        this.info = data;
+        this.link = null;
     }
 }
 
-class Student_Details_Manipulation{
-    Student first=null;
-    Student Student_Position=null;
+class Student_Details_Manipulation {
+    Student first = null;
+    Student Student_Position = null;
 
     protected void studentNext() {
-        if (Student_Position==null) {
+        if (Student_Position == null) {
             if (first == null) {
                 System.out.println("Empty student list.");
                 return;
@@ -40,7 +40,7 @@ class Student_Details_Manipulation{
     }
 
     protected void studentPrevious() {
-        if (Student_Position==null) {
+        if (Student_Position == null) {
             if (first == null) {
                 System.out.println("Empty student list.");
                 return;
@@ -61,23 +61,23 @@ class Student_Details_Manipulation{
         System.out.println("Current student: " + Arrays.toString(Student_Position.info));
     }
 
-    protected void insertAtFirstPosition(String[] data){
-        Student newStudent=new Student(data);
-        newStudent.link=first;
-        first=newStudent;
+    protected void insertAtFirstPosition(String[] data) {
+        Student newStudent = new Student(data);
+        newStudent.link = first;
+        first = newStudent;
     }
 
-    protected void insertAtLastPosition(String[] data){
-        Student newStudent=new Student(data);
-        if(first==null){
-            first=newStudent;
+    protected void insertAtLastPosition(String[] data) {
+        Student newStudent = new Student(data);
+        if (first == null) {
+            first = newStudent;
             return;
         }
-        Student current=first;
-        while(current.link!=null){
-            current=current.link;
+        Student current = first;
+        while (current.link != null) {
+            current = current.link;
         }
-        current.link=newStudent;
+        current.link = newStudent;
     }
 
     protected void insertAtOrder(String[] data) {
@@ -96,7 +96,6 @@ class Student_Details_Manipulation{
         current.link = newStudent;
     }
 
-    // user enters 1 based index :-
     protected void insertAtSpecificPosition(int index, String[] data) {
         Student newStudent = new Student(data);
         if (index <= 0) {
@@ -122,16 +121,16 @@ class Student_Details_Manipulation{
         current.link = newStudent;
     }
 
-    protected void deleteFromFirstPosition(){
-        if(first==null){
+    protected void deleteFromFirstPosition() {
+        if (first == null) {
             System.out.println("Empty student list.");
             return;
         }
-        first=first.link;
+        first = first.link;
     }
 
-    protected void deleteFromLastPosition(){
-        if(first==null){
+    protected void deleteFromLastPosition() {
+        if (first == null) {
             System.out.println("Empty student list.");
             return;
         }
@@ -139,14 +138,13 @@ class Student_Details_Manipulation{
             first = null;
             return;
         }
-        Student current=first;
-        while(current.link != null && (current.link).link!=null){
-            current=current.link;
+        Student current = first;
+        while (current.link != null && (current.link).link != null) {
+            current = current.link;
         }
-        current.link=null;
+        current.link = null;
     }
 
-    // user enters 1 based index :-
     protected void deleteFromSpecificPosition(int index) {
         if (first == null) {
             System.out.println("Empty student list.");
@@ -194,19 +192,20 @@ class Student_Details_Manipulation{
     }
 
     private boolean isDataSame(String[] info1, String[] info2) {
-        if (info1.length != info2.length) return false;
+        if (info1.length != info2.length)
+            return false;
         for (int i = 0; i < info1.length; i++) {
-            if (!info1[i].equals(info2[i])) return false;
+            if (!info1[i].equals(info2[i]))
+                return false;
         }
         return true;
     }
 
-
     protected void deleteAllStudents() {
-        first=null;
+        first = null;
     }
 
-    protected void searchStudent(Scanner sc){
+    protected void searchStudent(Scanner sc) {
         if (first == null) {
             System.out.println("Empty student list.");
             return;
@@ -215,7 +214,7 @@ class Student_Details_Manipulation{
         int rollNo;
         try {
             rollNo = sc.nextShort();
-            if (rollNo < 1 || rollNo > 10000) {  // I've assumed that there are maximum 10,000 students in school/college.
+            if (rollNo < 1 || rollNo > 10000) { // I've assumed that there are maximum 10,000 students in school/college.
                 System.out.println("\nError: Invalid rollNo.\nYour operation on student list has started again.\n");
                 searchStudent(sc);
                 return;
@@ -227,17 +226,17 @@ class Student_Details_Manipulation{
             searchStudent(sc);
             return;
         }
-        if(first.link == null){
-            if(rollNo==Integer.parseInt(first.info[1].replaceAll("Roll No: ", "").trim())){
+        if (first.link == null) {
+            if (rollNo == Integer.parseInt(first.info[1].replaceAll("Roll No: ", "").trim())) {
                 System.out.println("Index: 1");
                 return;
             }
         }
         Student current = first;
-        int i=1;
+        int i = 1;
         while (current.link != null) {
-            if(rollNo==Integer.parseInt(current.info[1].replaceAll("Roll No: ", "").trim())){
-                System.out.println("Index: "+i);
+            if (rollNo == Integer.parseInt(current.info[1].replaceAll("Roll No: ", "").trim())) {
+                System.out.println("Index: " + i);
                 return;
             }
             current = current.link;
@@ -246,7 +245,7 @@ class Student_Details_Manipulation{
     }
 
     protected boolean isEmpty() {
-        return first==null;
+        return first == null;
     }
 
     protected void displayStudentLinkedList() {
@@ -257,9 +256,9 @@ class Student_Details_Manipulation{
         char rightArrow = '→';
         Student current = first;
         System.out.println("\nStudent list:- ");
-        int i=1;
+        int i = 1;
         while (current != null) {
-            System.out.println((i++)+". "+rightArrow+" "+Arrays.toString(current.info));
+            System.out.println((i++) + ". " + rightArrow + " " + Arrays.toString(current.info));
             current = current.link;
         }
     }
@@ -272,7 +271,8 @@ class Student_Details_Manipulation{
         File file = new File("Student_List.txt");
         String yesNo;
         if (file.exists() && file.isFile() && file.length() != 0) {
-            System.out.println("\nNote: Saving the current list will overwrite the previously saved list.\nDo you want to proceed? (Yes/No)");
+            System.out.println(
+                    "\nNote: Saving the current list will overwrite the previously saved list.\nDo you want to proceed? (Yes/No)");
             while (true) {
                 yesNo = sc.nextLine().trim();
                 if (yesNo.equalsIgnoreCase("Yes") || yesNo.equalsIgnoreCase("No")) {
@@ -284,11 +284,10 @@ class Student_Details_Manipulation{
             if (yesNo.equalsIgnoreCase("No")) {
                 return;
             }
-        }
-        else if(!file.exists() || !file.isFile()) {
+        } else if (!file.exists() || !file.isFile()) {
             try {
                 file.createNewFile();
-            } catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());
             }
         }
@@ -301,7 +300,7 @@ class Student_Details_Manipulation{
             int i = 1;
             while (current != null) {
                 writer.write(i++ + ". " + rightArrow + " " + Arrays.toString(current.info));
-                if(current.link!=null)
+                if (current.link != null)
                     writer.newLine();
                 current = current.link;
             }

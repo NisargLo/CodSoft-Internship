@@ -121,7 +121,7 @@ public class Student_Management_System {
         }
     }
 
-    private static void displayMenu(){
+    private static void displayMenu() {
         System.out.println("\nEnter 1 to see next student details from student list: ");
         System.out.println("Enter 2 to see previous student details from student list: ");
         System.out.println("Enter 3 to add student details at first position in student list: ");
@@ -155,7 +155,7 @@ public class Student_Management_System {
         short rollNo;
         try {
             rollNo = sc.nextShort();
-            if (rollNo < 1 || rollNo > 10000) {  // I've assumed that there are maximum 10,000 students in school/college.
+            if (rollNo < 1 || rollNo > 10000) { // I've assumed that there are maximum 10,000 students in school/college.
                 System.out.println("\nError: Invalid rollNo.\nYour operation on student list has started again.\n");
                 return scanDetails(sc);
             }
@@ -210,7 +210,7 @@ public class Student_Management_System {
         return stu;
     }
 
-    private static short scanValidIndex(Scanner sc){
+    private static short scanValidIndex(Scanner sc) {
         System.out.println("Enter index: ");
         short index;
         try {
