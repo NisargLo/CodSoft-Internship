@@ -1,4 +1,9 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.Scanner;
 
 class Student {
     public String[] info;
@@ -216,6 +221,53 @@ class Student_Details_Manipulation{
         while (current != null) {
             System.out.println((i++)+". "+rightArrow+" "+Arrays.toString(current.info));
             current = current.link;
+        }
+    }
+
+    protected void saveOnFile(Scanner sc) {
+        if (first == null) {
+            System.out.println("The student list is empty.");
+            return;
+        }
+        File file = new File("Student_List.txt");
+        String yesNo;
+        if (file.exists() && file.isFile() && file.length() != 0) {
+            System.out.println("\nNote: Saving the current list will overwrite the previously saved list.\nDo you want to proceed? (Yes/No)");
+            while (true) {
+                yesNo = sc.nextLine().trim();
+                if (yesNo.equalsIgnoreCase("Yes") || yesNo.equalsIgnoreCase("No")) {
+                    break;
+                } else {
+                    System.out.println("\nInvalid input. Please enter 'Yes' or 'No'.");
+                }
+            }
+            if (yesNo.equalsIgnoreCase("No")) {
+                return;
+            }
+        }
+        else if(!file.exists() || !file.isFile()) {
+            try {
+                file.createNewFile();
+            } catch (Exception e){
+                System.out.println("Error: " + e.getMessage());
+            }
+        }
+        try (FileWriter fw = new FileWriter(file); BufferedWriter writer = new BufferedWriter(fw)) {
+            char rightArrow = '→';
+            Student current = first;
+            writer.write("Student list:");
+            writer.newLine();
+            writer.newLine();
+            int i = 1;
+            while (current != null) {
+                writer.write(i++ + ". " + rightArrow + " " + Arrays.toString(current.info));
+                if(current.link!=null)
+                    writer.newLine();
+                current = current.link;
+            }
+            System.out.println("Student details have been saved to Student_List.txt.");
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
 }
