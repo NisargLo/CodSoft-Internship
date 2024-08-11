@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 class Student {
@@ -186,7 +187,7 @@ class Student_Details_Manipulation{
             current = current.link;
         }
         if (current.link == null) {
-            System.out.println("No such element in student list.");
+            System.out.println("No such student in student list.");
             return;
         }
         current.link = current.link.link;
@@ -205,6 +206,45 @@ class Student_Details_Manipulation{
         first=null;
     }
 
+    protected void searchStudent(Scanner sc){
+        if (first == null) {
+            System.out.println("Empty student list.");
+            return;
+        }
+        System.out.println("Enter student's rollNo: ");
+        int rollNo;
+        try {
+            rollNo = sc.nextShort();
+            if (rollNo < 1 || rollNo > 10000) {  // I've assumed that there are maximum 10,000 students in school/college.
+                System.out.println("\nError: Invalid rollNo.\nYour operation on student list has started again.\n");
+                searchStudent(sc);
+                return;
+            }
+            sc.nextLine();
+        } catch (InputMismatchException e) {
+            System.out.println("\nError: Invalid rollNo.\nYour operation on student list has started again.\n");
+            sc.nextLine();
+            searchStudent(sc);
+            return;
+        }
+        if(first.link == null){
+            if(rollNo==Integer.parseInt(first.info[1].replaceAll("Roll No: ", "").trim())){
+                System.out.println("Index: 1");
+                return;
+            }
+        }
+        Student current = first;
+        int i=1;
+        while (current.link != null) {
+            if(rollNo==Integer.parseInt(current.info[1].replaceAll("Roll No: ", "").trim())){
+                System.out.println("Index: "+i);
+                return;
+            }
+            current = current.link;
+        }
+        System.out.println("No such student in student list.");
+    }
+
     protected boolean isEmpty() {
         return first==null;
     }
@@ -216,7 +256,7 @@ class Student_Details_Manipulation{
         }
         char rightArrow = '→';
         Student current = first;
-        System.out.println("\nStudent list: ");
+        System.out.println("\nStudent list:- ");
         int i=1;
         while (current != null) {
             System.out.println((i++)+". "+rightArrow+" "+Arrays.toString(current.info));

@@ -1,16 +1,16 @@
 /*
     Task 5: Student Management System
-    (Date - 10/8/24)
+    (Date - 11/8/24)
 
     Create a Student class to represent individual students.
     Include attributes such as name, roll number, grade, and any other relevant details.
-    Implement a StudentManagementSystem class to manage the collection of students.
-    Include methods to add a student, remove a student, search for a student, and disStudent_ all students.
+    Implement a Student_Management_System class to manage the collection of students.
+    Include methods to add a student, remove a student, search for a student, and display all students.
     Design the user interface for the Student Management System.
     This can be a console-based interface or a graphical user interface (GUI) using libraries like Swing or JavaFX.
     Implement methods to read and write student data to a storage medium, such as a file or a database.
-    Allow users to interact with the Student Management System by providing options such as adding a new student, editing an existing student's information, searching for a student, disStudent_ing all students, and exiting the application.
-    Implement input validation to ensure that required fields are not left empty and that the student data is in the correct format.
+    Allow users to interact with the Student Management System by providing options such as adding a new student, editing an existing student's information, searching for a student, displaying all students, and exiting the application.
+    Implement input validation to ensure that required fields are not left empty and that the student data is in the correct format
  */
 
 import java.util.InputMismatchException;
@@ -89,6 +89,10 @@ public class Student_Management_System {
                         break;
 
                     case 12:
+                        studentList.searchStudent(sc);
+                        break;
+
+                    case 13:
                         if (studentList.isEmpty()) {
                             System.out.println("Student list is empty.");
                         } else {
@@ -96,11 +100,11 @@ public class Student_Management_System {
                         }
                         break;
 
-                    case 13:
+                    case 14:
                         studentList.displayStudentLinkedList();
                         break;
 
-                    case 14:
+                    case 15:
                         studentList.saveOnFile(sc);
                         break;
 
@@ -129,9 +133,10 @@ public class Student_Management_System {
         System.out.println("Enter 9 to delete student details, which is at specific position in student list: ");
         System.out.println("Enter 10 to delete given student details in student list: ");
         System.out.println("Enter 11 to delete all student details in student list: ");
-        System.out.println("Enter 12 to check if student list is empty or not: ");
-        System.out.println("Enter 13 to display student list: ");
-        System.out.println("Enter 14 to save student list on file Student_List.txt: ");
+        System.out.println("Enter 12 to search student from student list: ");
+        System.out.println("Enter 13 to check if student list is empty or not: ");
+        System.out.println("Enter 14 to display student list: ");
+        System.out.println("Enter 15 to save student list on file Student_List.txt: ");
         System.out.println("Enter -1 to exit student management system: ");
     }
 
