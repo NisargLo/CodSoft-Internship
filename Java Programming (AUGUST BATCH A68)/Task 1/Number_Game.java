@@ -17,6 +17,7 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+
 public class Number_Game {
      private byte random_Number, lives = 100;
      private int points, score = 0;
